@@ -25,6 +25,8 @@ my_screen_name = client.user.screen_name
 stream.user do |tweet|
   # DMとか入ってくるので
   next unless tweet.is_a?(Twitter::Tweet)
+  # RTは除外
+  next unless tweet.retweeted_status.nil?
   # 無限ループになるので自分のツイートには何もしない
   next if tweet.user.screen_name == my_screen_name
 
