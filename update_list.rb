@@ -26,7 +26,8 @@ list_members = $client.list_members(LIST_ID, count: 5000, skip_status: true, inc
 listing_ids = list_members.map {|m| m[:id]}
 
 # 15回/15分、max 件数5000
-following_ids = $client.friend_ids(count: 5000).to_h[:ids]
+# 自分へのリプライが届くように自分もリストに入れる
+following_ids = $client.friend_ids(count: 5000).to_h[:ids] + [$client.user.id]
 
 # リミット明記なし、15回/15分かな
 # 1回100ユーザーまで行けるので気にせずやってしまう
